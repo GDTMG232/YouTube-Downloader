@@ -1,7 +1,8 @@
 try:
    import yt_dlp as youtube_dl
 except:
-   print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
+   input("You do not have yt_dlp, please run InstallYTDLP.bat to install it.\nPress enter to exit.")
+   exit()
 
 def download_audio(url, output_path = ""):
     options = {
