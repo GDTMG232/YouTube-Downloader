@@ -4,13 +4,6 @@ except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
 def download_audio(url, output_path = ""):
-    """
-    Download audio from YouTube given a URL and save it to the specified path.
-    
-    Parameters:
-        url (str): The URL of the YouTube video.
-        output_path (str): The path where the downloaded audio will be saved.
-    """
     options = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -26,13 +19,6 @@ def download_audio(url, output_path = ""):
     print("Audio downloaded successfully.")
 
 def download_video(url, output_path = ""):
-    """
-    Download video from YouTube given a URL and save it to the specified path.
-    
-    Parameters:
-        url (str): The URL of the YouTube video.
-        output_path (str): The path where the downloaded video will be saved.
-    """
     ydl_opts = {
         'format': 'best',
         'outtmpl': output_path + '/%(title)s' + ".mp4",
@@ -41,8 +27,6 @@ def download_video(url, output_path = ""):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
     print("Video downloaded successfully.")
-
-# Example usage:
 try:
     while True:
       try:
@@ -59,7 +43,7 @@ try:
            print("ok bye")
            exit()
         else:
-          print("wrong")
+          print("Try again.\n")
       except Exception as e:
         print(e)
         pass
