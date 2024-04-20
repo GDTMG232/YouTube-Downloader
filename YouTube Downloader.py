@@ -1,3 +1,5 @@
+from fflocation import fflocation
+
 try:
    import yt_dlp as youtube_dl
 except:
@@ -12,6 +14,7 @@ def download_audio(url, output_path = ""):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
+        'ffmpeg_location': fflocation,
         'outtmpl': output_path + '/%(title)s',
     }
     
@@ -22,6 +25,7 @@ def download_audio(url, output_path = ""):
 def download_video(url, output_path = ""):
     ydl_opts = {
         'format': 'best',
+        'ffmpeg_location': fflocation,
         'outtmpl': output_path + '/%(title)s' + ".mp4",
     }
     
