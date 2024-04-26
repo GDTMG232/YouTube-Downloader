@@ -1,10 +1,11 @@
 try:
    import yt_dlp as youtube_dl
    import requests
+   import os
 except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
-version = "V0.01"
+version = "V0.1"
 
 def read_github_file(raw_url):
     try:
@@ -20,7 +21,6 @@ def download_file(url, save_path):
     if response.status_code == 200:
         with open(save_path, 'wb') as f:
             f.write(response.content)
-        print("File downloaded successfully!")
     else:
         print("Failed to download file. Status code:", response.status_code)
 
@@ -29,9 +29,11 @@ changelog = ""
 
 exec(read_github_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/updates.py"))
 if currentVersion != version:
-   if input(f"You have to update to {currentVersion}!\n{changelog}\n\nWould you like to update?\nY/N: ").lower() == "y":
-      download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "NewVersionYTDNLDR.py")
-      input("Downloaded! Run NewVersionYTDNLDR.py for the newest version!\nPress Enter to quit.")
+   if input(f"You have to update from {version} to {currentVersion}!\n{changelog}\n\nWould you like to update?\nY/N: ").lower() == "y":
+      os.rename(__file__, "outdatedYTDNLDR.py")
+      download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "Youtube Downloader.py")
+      input("Downloaded! Run Youtube Downloader.py for the newest version!\nPress Enter to quit.")
+      os.remove("outdatedYTDNLDR.py")
       exit()
    else:
       print("\nOkay!\n")
