@@ -18,3 +18,7 @@ If you want an audio download, type a then press enter, then provide a YouTube v
 <h2>If none of that works</h2><br>
 <b>Did you change anything?</b> No?<br>
 <b>Redownload it then.</b><br>
+
+
+<h3>And also..</h3><br>
+updates.py is not required to download, and even if you did, it wouldn't do anything for you anyway.
