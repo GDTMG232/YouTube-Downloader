@@ -2,10 +2,11 @@ try:
    import yt_dlp as youtube_dl
    import requests
    import os
+   import random as r
 except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
-version = "V0.1"
+version = "V0.11"
 
 def read_github_file(raw_url):
     try:
@@ -23,6 +24,12 @@ def download_file(url, save_path):
             f.write(response.content)
     else:
         print("Failed to download file. Status code:", response.status_code)
+
+tips = ["\nDidn't download properly? Run 'pip install --upgrade yt-dlp' in your command line!\n",
+        "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'
+]
+
+tipchance = 20
 
 currentVersion = ""
 changelog = ""
@@ -62,11 +69,16 @@ def download_video(url, output_path = ""):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
     print("Video downloaded successfully.")
-    
+
+runs = 0
+
 try:
     while True:
       try:
-        x = input("v or a\n\nv = video download, a = audio download\nor do na/an for both\nor \"exit\" to quit.\n\n")
+        if runs != 0:
+           if r.randint(1, tipchance) == 1:
+              print(tips[r.randint(0, len(tips)-1)])
+        x = input("\nv or a\n\nv = video download, a = audio download\nor do na/an for both\nor \"exit\" to quit.\n\n")
         if x.lower() == "a":
           download_audio(input("url: "), "\\Audio\\")
         elif x.lower() == "v":
