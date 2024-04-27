@@ -26,7 +26,7 @@ def download_file(url, save_path):
         print("Failed to download file. Status code:", response.status_code)
 
 tips = ["\nDidn't download properly? Run 'pip install --upgrade yt-dlp' in your command line!\n",
-        "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'
+        "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'"
 ]
 
 tipchance = 20
