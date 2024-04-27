@@ -16,9 +16,9 @@ If you want a video download, type v then press enter, then provide a YouTube vi
 If you want an audio download, type a then press enter, then provide a YouTube video or playlist URL, it will save to a folder called Audio in the same directory as your YouTube Downloader.py download.<br>
 <br>
 <h2>If none of that works</h2><br>
-<b>Did you set the ffmpeg location correctly in fflocation.py?</b> No? Do that then.
-<b>Did you do everything required?</b> Yes? You probably need to update yt_dlp or Youtube Downloader, check below.
-
+<b>Did you set the ffmpeg location correctly in fflocation.py?</b> No? Do that then.<br>
+<b>Did you do everything required?</b> Yes? You probably need to update yt_dlp or Youtube Downloader, check below.<br>
+<br>
 
 <h3>And also..</h3><br>
 updates.py is not required to download, and even if you did, it wouldn't do anything for you anyway.
