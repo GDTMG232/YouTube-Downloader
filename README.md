@@ -26,3 +26,4 @@ updates.py is not required to download, and even if you did, it wouldn't do anyt
 <br>
 <br>
 run "pip install --upgrade yt_dlp" every month or so just to make sure it doesnt bug out :)
+<br><br>im so kind i made it open source <i>cuz some people dont trust these things to not be viruses, its open source so you can check it lol</i>
