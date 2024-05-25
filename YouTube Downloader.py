@@ -6,7 +6,7 @@ try:
 except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
-version = "V0.11"
+version = "V0.12"
 
 def read_github_file(raw_url):
     try:
@@ -78,12 +78,12 @@ try:
         if runs != 0:
            if r.randint(1, tipchance) == 1:
               print(tips[r.randint(0, len(tips)-1)])
-        x = input("\nv or a\n\nv = video download, a = audio download\nor do na/an for both\nor \"exit\" to quit.\n\n")
+        x = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor \"exit\" to quit.\n\n")
         if x.lower() == "a":
           download_audio(input("url: "), "\\Audio\\")
         elif x.lower() == "v":
           download_video(input("url: "), "\\Video\\")
-        elif x.lower() == "an" or x.lower() == "na":
+        elif x.lower() == "av" or x.lower() == "va":
             url = input("url: ")
             download_audio(url, "\\Audio\\")
             download_video(url, "\\Video\\")
