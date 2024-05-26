@@ -3,10 +3,11 @@ try:
    import requests
    import os
    import random as r
+   import argparse
 except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
-version = "V0.12"
+version = "V0.13"
 
 def read_github_file(raw_url):
     try:
@@ -25,8 +26,9 @@ def download_file(url, save_path):
     else:
         print("Failed to download file. Status code:", response.status_code)
 
-tips = ["\nDidn't download properly? Run 'pip install --upgrade yt-dlp' in your command line!\n",
-        "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'"
+tips = [
+   "\nDidn't download properly? Run 'pip install --upgrade yt-dlp' in your command line!\n",
+   "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'"
 ]
 
 tipchance = 20
@@ -73,28 +75,43 @@ def download_video(url, output_path = ""):
 runs = 0
 
 try:
-    while True:
-      try:
-        if runs != 0:
-           if r.randint(1, tipchance) == 1:
-              print(tips[r.randint(0, len(tips)-1)])
-        x = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor \"exit\" to quit.\n\n")
-        if x.lower() == "a":
-          download_audio(input("url: "), "\\Audio\\")
-        elif x.lower() == "v":
-          download_video(input("url: "), "\\Video\\")
-        elif x.lower() == "av" or x.lower() == "va":
-            url = input("url: ")
-            download_audio(url, "\\Audio\\")
-            download_video(url, "\\Video\\")
-        elif x.lower() == "exit":
-           print("ok bye")
-           exit()
-        else:
-          print("wrong")
-      except Exception as e:
-        print(e)
-        pass
+    parser = argparse.ArgumentParser(description="YT DNLDR")
+    parser.add_argument("type", nargs='?', help="av/va/v/a")
+    parser.add_argument("url", nargs='?', help="YT URL")
+    args = parser.parse_args()
+    if args.type and args.url:
+        Type = args.type
+        url = args.url
+        if Type.lower() == "v":
+           download_video(url, os.getcwd())
+        elif Type.lower() == "a":
+           download_audio(url, os.getcwd())
+        elif Type.lower() == "an" or Type.lower() == "na":
+           download_video(url, os.getcwd())
+           download_audio(url, os.getcwd())
+    else:
+       while True:
+         try:
+           if runs != 0:
+              if r.randint(1, tipchance) == 1:
+                 print(tips[r.randint(0, len(tips)-1)])
+           x = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor \"exit\" to quit.\n\n")
+           if x.lower() == "a":
+             download_audio(input("url: "), "\\Audio\\")
+           elif x.lower() == "v":
+             download_video(input("url: "), "\\Video\\")
+           elif x.lower() == "av" or x.lower() == "va":
+               url = input("url: ")
+               download_audio(url, "\\Audio\\")
+               download_video(url, "\\Video\\")
+           elif x.lower() == "exit":
+              print("ok bye")
+              exit()
+           else:
+             print("wrong")
+         except Exception as e:
+           print(e)
+           pass
 except KeyboardInterrupt:
     print("ok bye")
     exit()
