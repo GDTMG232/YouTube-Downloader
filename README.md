@@ -1,5 +1,5 @@
 This is just a YouTube downloader, let's be honest.<br>
-you also need ffmpeg installed. find here: [https://ffmpeg.org/download.html](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z) <br>
+you also need ffmpeg installed. find here: [FFMpeg Download](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z) <br>
 <br>
 <h1>How it works</h1><br>
 Basically, just run YouTube Downloader.py and if it doesnt run, just run InstallYTDLP.bat, then try again.<br>
