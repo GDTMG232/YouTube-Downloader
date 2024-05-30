@@ -1,0 +1,1 @@
+YOUR_FFMPEG_DIRECTORY -- Replace YOUR_FFMPEG_DIRECTORY with your ffmpeg directory, not your ffmpeg file, just the directory its located in.
