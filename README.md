@@ -20,4 +20,8 @@ Then run YouTube Downloader.py and it should work.<br>
 
 <h5>Other errors</h5>
 If it doesn't open properly - You more than likely haven't got Python installed. https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe<br>
-If something doesn't work in the script itself - Try updating yt-dlp or argparse <b>pip install --upgrade yt-dlp</b> or <b>pip install --upgrade argparse</b>
+If something doesn't work in the script itself - Try updating yt-dlp or argparse <b>pip install --upgrade yt-dlp</b> or <b>pip install --upgrade argparse</b><br>
+<br>
+<br>
+Other Notes<br>
+In the <b>YouTube Downloader.py</b> file, if you plan to run it with CMD, change line 85 to the FULL directory of fflocation.txt, so rather than just <i>"fflocation.txt"</i> it is <i>"directory\\of\\fflocation.txt"</i>
