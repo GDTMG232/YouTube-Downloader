@@ -36,16 +36,19 @@ tipchance = 20
 currentVersion = ""
 changelog = ""
 
-exec(read_github_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/updates.py"))
-if currentVersion != version:
-   if input(f"You have to update from {version} to {currentVersion}!\n{changelog}\n\nWould you like to update?\nY/N: ").lower() == "y":
-      os.rename(__file__, "outdatedYTDNLDR.py")
-      download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "Youtube Downloader.py")
-      input("Downloaded! Run Youtube Downloader.py for the newest version!\nPress Enter to quit.")
-      os.remove("outdatedYTDNLDR.py")
-      exit()
-   else:
-      print("\nOkay!\n")
+try:
+   exec(read_github_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/updates.py"))
+   if currentVersion != version:
+      if input(f"You have to update from {version} to {currentVersion}!\n{changelog}\n\nWould you like to update?\nY/N: ").lower() == "y":
+         os.rename(__file__, "outdatedYTDNLDR.py")
+         download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "Youtube Downloader.py")
+         input("Downloaded! Run Youtube Downloader.py for the newest version!\nPress Enter to quit.")
+         os.remove("outdatedYTDNLDR.py")
+         exit()
+      else:
+         print("\nOkay!\n")
+except:
+   pass
 
 def download_audio(url, output_path = ""):
     global fflocation
