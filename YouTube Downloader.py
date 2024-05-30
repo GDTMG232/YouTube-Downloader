@@ -7,7 +7,7 @@ try:
 except:
    print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
 
-version = "V0.13"
+version = "V0.135"
 
 def read_github_file(raw_url):
     try:
@@ -48,6 +48,7 @@ if currentVersion != version:
       print("\nOkay!\n")
 
 def download_audio(url, output_path = ""):
+    global fflocation
     options = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -56,6 +57,7 @@ def download_audio(url, output_path = ""):
             'preferredquality': '192',
         }],
         'outtmpl': output_path + '/%(title)s',
+        'ffmpeg_location': fflocation
     }
     
     with youtube_dl.YoutubeDL(options) as ydl:
@@ -63,9 +65,11 @@ def download_audio(url, output_path = ""):
     print("Audio downloaded successfully.")
 
 def download_video(url, output_path = ""):
+    global fflocation
     ydl_opts = {
         'format': 'best',
         'outtmpl': output_path + '/%(title)s' + ".mp4",
+        'ffmpeg_location': fflocation
     }
     
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -75,6 +79,8 @@ def download_video(url, output_path = ""):
 runs = 0
 
 try:
+    with open("fflocation.txt", "r") as f:
+       fflocation = f.read().split(" -- ")[0]
     parser = argparse.ArgumentParser(description="YT DNLDR")
     parser.add_argument("type", nargs='?', help="av/va/v/a")
     parser.add_argument("url", nargs='?', help="YT URL")
