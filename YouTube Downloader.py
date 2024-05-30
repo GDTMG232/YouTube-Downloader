@@ -5,7 +5,7 @@ try:
    import random as r
    import argparse
 except:
-   print("You do not have yt_dlp, please run InstallYTDLP.bat to install it.")
+   print("You do not have yt_dlp, please run requirements.bat to install it.")
 
 version = "V0.135"
 
