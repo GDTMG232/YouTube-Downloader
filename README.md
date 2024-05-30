@@ -1,4 +1,4 @@
-Requirments:<br><pre>
+Requirements:<br><pre>
   Python - 3.7 Minimum - 3.12.3 Recommended
   pip:<br>
     yt_dlp<br>
