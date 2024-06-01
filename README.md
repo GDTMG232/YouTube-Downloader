@@ -1,5 +1,5 @@
 Requirements:<br><pre>
-  Python - 3.7 Minimum - 3.12.3 Recommended
+  Python - 3.7 Minimum - 3.12.3 Recommended - https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe
   pip:<br>
     yt_dlp<br>
     argparse<br>
