@@ -1,3 +1,3 @@
-currentVersion = "V0.135"
-changelog = "Added function for CMD - allows perameters -- Forgot fflocation.txt | Fixed now"
+currentVersion = "V0.14"
+changelog = "fflocation.txt will be found whether you are using YouTube Downloader.py as a command script or not"
 # This Python file is simply just versions, no worries about downloading this file :)
