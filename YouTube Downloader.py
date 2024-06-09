@@ -5,9 +5,9 @@ try:
    import random as r
    import argparse
 except:
-   print("You do not have yt_dlp, please run requirements.bat to install it.")
+   print("You do not have yt_dlp or argparse, please run requirements.bat to install it.")
 
-version = "V0.135"
+version = "V0.14"
 
 def read_github_file(raw_url):
     try:
@@ -82,7 +82,7 @@ def download_video(url, output_path = ""):
 runs = 0
 
 try:
-    with open("fflocation.txt", "r") as f:
+    with open(os.path.dirname(os.path.abspath(__file__)) + "\\fflocation.txt", "r") as f:
        fflocation = f.read().split(" -- ")[0]
     parser = argparse.ArgumentParser(description="YT DNLDR")
     parser.add_argument("type", nargs='?', help="av/va/v/a")
