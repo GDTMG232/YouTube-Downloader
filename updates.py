@@ -1,5 +1,5 @@
 currentVersion = "V0.161"
-changelog = "Always best quality download as MP4"
+changelog = "Optional best quality download"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
