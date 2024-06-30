@@ -9,7 +9,7 @@ except:
    input("")
    exit()
 
-version = "V0.16"
+version = "V0.161"
 
 quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
 
