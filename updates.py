@@ -34,6 +34,5 @@ V0.16
 Always download in best quality
 
 V0.161
-Minor Change : Always download in MP4
 Minor Change_2 : quality variable - set to False if you want quick downloads, set to True if you want best downloads
 '''
