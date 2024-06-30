@@ -11,6 +11,8 @@ except:
 
 version = "V0.16"
 
+quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
+
 def read_github_file(raw_url):
     try:
         response = requests.get(raw_url)
@@ -77,7 +79,7 @@ def download_audio(url, output_path=""):
 
 def download_video(url, output_path=""):
     options = {
-        'format': 'bestvideo+bestaudio/best',
+        'format': 'bestvideo+bestaudio/best' if quality else 'best',
         'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
         'ffmpeg_location': fflocation
     }
