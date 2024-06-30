@@ -9,7 +9,7 @@ except:
    input("")
    exit()
 
-version = "V0.15"
+version = "V0.16"
 
 def read_github_file(raw_url):
     try:
@@ -77,7 +77,7 @@ def download_audio(url, output_path=""):
 
 def download_video(url, output_path=""):
     options = {
-        'format': 'best',
+        'format': 'bestvideo+bestaudio/best',
         'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
         'ffmpeg_location': fflocation
     }
