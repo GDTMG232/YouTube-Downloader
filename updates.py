@@ -2,7 +2,7 @@ currentVersion = "V0.16"
 changelog = "Always best quality download"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
-ALL CHANGES - in order
+ALL VERSIONS - in order
 
 V0.01
 Added Versions and Updates.
