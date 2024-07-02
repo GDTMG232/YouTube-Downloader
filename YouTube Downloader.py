@@ -12,7 +12,7 @@ except:
 
 version = "V0.17"
 
-quality = False # Set this to False if you would like videos to be downloaded faster | Does degrade quality
+quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
 
 def read_github_file(raw_url):
     try:
@@ -53,7 +53,7 @@ def check_for_update():
                 changelog = line.split('=')[1].strip().strip('"')
 
         if current_version and current_version != version:
-            update = input(f"You need to update from {version} to {current_version}!\n{changelog}\n\nWould you like to update? (Y/N) or type (A) to not ask again: ").strip().lower()
+            update = input(f"You need to update from {version} to {current_version}!\n{changelog}\n\nWould you like to update? (Y/N) or no and don't ask again (A): ").strip().lower()
             if update == "y":
                 os.rename(__file__, "old_YT_Downloader.py")
                 download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "Youtube Downloader.py")
@@ -156,10 +156,8 @@ if __name__ == "__main__":
       with open(f"{directory}\\Do Update Remind.txt", "x") as f:
          pass
       with open(f"{directory}\\Do Update Remind.txt", "a") as f:
-         f.write("Y")
+         f.write("Y -- Set to N if you don't want updates.")
    with open(f"{directory}\\Do Update Remind.txt", "r") as f:
       if f.read().startswith("Y"):
          check_for_update()
-      else:
-         pass
    main()
