@@ -1,5 +1,5 @@
-currentVersion = "V0.161"
-changelog = "Optional best quality download"
+currentVersion = "V0.17"
+changelog = "\"Don't ask again\" update"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
@@ -35,4 +35,7 @@ Always download in best quality
 
 V0.161
 Minor Change_2 : quality variable - set to False if you want quick downloads, set to True if you want best downloads
+
+V0.17
+"Don't ask again" update
 '''
