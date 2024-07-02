@@ -4,14 +4,15 @@ try:
    import os
    import random
    import argparse
+   from getpass import getuser as getUsername
 except:
    print("You don't have all required modules, use Requirements.bat to install the modules needed.")
    input("")
    exit()
 
-version = "V0.161"
+version = "V0.17"
 
-quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
+quality = False # Set this to False if you would like videos to be downloaded faster | Does degrade quality
 
 def read_github_file(raw_url):
     try:
@@ -52,14 +53,21 @@ def check_for_update():
                 changelog = line.split('=')[1].strip().strip('"')
 
         if current_version and current_version != version:
-            if input(f"You need to update from {version} to {current_version}!\n{changelog}\n\nWould you like to update? (Y/N): ").strip().lower() == "y":
+            update = input(f"You need to update from {version} to {current_version}!\n{changelog}\n\nWould you like to update? (Y/N) or type (A) to not ask again: ").strip().lower()
+            if update == "y":
                 os.rename(__file__, "old_YT_Downloader.py")
                 download_file("https://raw.githubusercontent.com/GDTMG232/YouTube-Downloader/main/YouTube%20Downloader.py", "Youtube Downloader.py")
                 input("Downloaded! Run 'Youtube Downloader.py' for the newest version!\nPress Enter to quit.")
                 os.remove("old_YT_Downloader.py")
                 exit()
             else:
-                print("\nOkay!\n")
+                if update == "a":
+                   with open(f"{directory}\\Do Update Remind.txt", "w") as f:
+                     f.write("N")
+                   print("Won't ask again.")
+                else:
+                   print("Okay!")
+                   
 
 def download_audio(url, output_path=""):
     options = {
@@ -83,6 +91,7 @@ def download_video(url, output_path=""):
         'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
         'ffmpeg_location': fflocation
     }
+
     
     with youtube_dl.YoutubeDL(options) as ydl:
         ydl.download([url])
@@ -141,5 +150,16 @@ def interactive_mode():
             print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    check_for_update()
-    main()
+   directory = f"C:\\Users\\{getUsername()}\\AppData\\Local\\TMG\\YT Downloader"
+   if not os.path.exists(f"C:\\Users\\{getUsername()}\\AppData\\Local\\TMG\\YT Downloader\\Do Update Remind.txt"):
+      os.makedirs(directory, exist_ok=True)
+      with open(f"{directory}\\Do Update Remind.txt", "x") as f:
+         pass
+      with open(f"{directory}\\Do Update Remind.txt", "a") as f:
+         f.write("Y")
+   with open(f"{directory}\\Do Update Remind.txt", "r") as f:
+      if f.read().startswith("Y"):
+         check_for_update()
+      else:
+         pass
+   main()
