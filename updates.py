@@ -38,4 +38,5 @@ Minor Change_2 : quality variable - set to False if you want quick downloads, se
 
 V0.17
 "Don't ask again" update
+check AppData\\Local\\TMG\\YouTube Downloader
 '''
