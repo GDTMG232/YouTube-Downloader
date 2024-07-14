@@ -10,7 +10,7 @@ except:
    input("")
    exit()
 
-version = "V0.17"
+version = "V0.18"
 
 quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
 
@@ -133,13 +133,18 @@ def interactive_mode():
 
             choice = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor 'exit' to quit.\n\n").strip().lower()
             if choice == "a":
-                download_audio(input("URL: "), "Audio")
+                url = input("URL(s) or playlist(s): ").strip()
+                for link in url.split(","):
+                   download_audio(link.strip(), "Audio")
             elif choice == "v":
-                download_video(input("URL: "), "Video")
+                url = input("URL(s) or playlist(s): ").strip()
+                for link in url.split(","):
+                   download_video(link.strip(), "Video")
             elif choice in ["av", "va"]:
-                url = input("URL: ")
-                download_audio(url, "Audio")
-                download_video(url, "Video")
+                url = input("URL(s) or playlist(s): ").strip()
+                for link in url.split(","):
+                   download_audio(link.strip(), "Audio")
+                   download_video(link.strip(), "Video")
             elif choice == "exit":
                 print("Goodbye!")
                 break
