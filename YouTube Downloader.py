@@ -133,15 +133,15 @@ def interactive_mode():
 
             choice = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor 'exit' to quit.\n\n").strip().lower()
             if choice == "a":
-                url = input("URL(s) or playlist(s): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\": ").strip()
                 for link in url.split(","):
                    download_audio(link.strip(), "Audio")
             elif choice == "v":
-                url = input("URL(s) or playlist(s): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\": ").strip()
                 for link in url.split(","):
                    download_video(link.strip(), "Video")
             elif choice in ["av", "va"]:
-                url = input("URL(s) or playlist(s): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\": ").strip()
                 for link in url.split(","):
                    download_audio(link.strip(), "Audio")
                    download_video(link.strip(), "Video")
