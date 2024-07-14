@@ -1,5 +1,5 @@
-currentVersion = "V0.17"
-changelog = "\"Don't ask again\" update"
+currentVersion = "V0.18"
+changelog = "Added bulk downloads"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
@@ -39,4 +39,7 @@ Minor Change_2 : quality variable - set to False if you want quick downloads, se
 V0.17
 "Don't ask again" update
 check AppData\\Local\\TMG\\YT Downloader
+
+V0.18
+Added bulk downloads
 '''
