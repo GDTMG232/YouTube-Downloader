@@ -7,7 +7,14 @@ Requirements:<br><pre>
   other:<br>
     ffmpeg<br>
     link: https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z<br></pre>
-
+<br>
+<h1>How to install YouTube Downloader</h1>
+You need to install Python (Link provided above) and ffmpeg (link also provided above), and then you have to unzip the ffmpeg .7z file into a designated folder so that you don't accidentally delete it.<br>
+You can then provide the ffmpeg.exe directory in <b>fflocation.txt</b> in the YouTube Downloader folder.<br>
+<br>
+<b>Format of ffmpeg.exe Directory</b><br>
+IT IS NOT : <i>path\to\your\ffmpeg\ffmpeg.exe</i><br>
+IT IS : <i>path\to\your\ffmpeg\</i><br>
 <h1>How to use</h1>
 In <b>fflocation.txt</b> replace <b>YOUR_FFMPEG_DIRECTORY</b> with the directory where ffmpeg.exe is located.<br>
 With cmd, run the command <b>pip install yt_dlp argparse</b> in order to install required modules.<br>
