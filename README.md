@@ -45,6 +45,11 @@ Available on Unix (Linux & MacOS) and NT (Windows) systems.
    - Open CMD and navigate to the YouTube Downloader folder.
    - For NT: Run: `python "YouTube Downloader.py"`
    - For UNIX: Run: `python3 "YouTube Downloader.py"`
+  
+3. **If you want to have faster downloads**
+   - Open Youtube Downloader.py as code, using a text editor of some sort
+   - Go to line `28` and set `quality` to `False` - `quality = False`
+   - This WILL degrade quality and will therefore download videos faster, audio is not affected.
 
 ## Troubleshooting
 
