@@ -8,7 +8,8 @@ Available on Unix (Linux & MacOS) and NT (Windows) systems.
 - **pip**:
   - `yt_dlp`
   - `argparse`
-  - Install with: `pip install yt_dlp argparse`
+  - NT: Install with: `pip install yt_dlp argparse`
+  - UNIX: Install with: `pip3 install yt_dlp argparse --break-system-packages`
 - **ffmpeg**:
   - [Download ffmpeg - Windows](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)
   - Unzip the ffmpeg `.7z` file to a designated folder.
