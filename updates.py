@@ -1,5 +1,5 @@
-currentVersion = "V0.18"
-changelog = "Added bulk downloads"
+currentVersion = "V0.19"
+changelog = "Added automatic module installation, Added a 'This is your first time using YouTube Downloader' message, Made the screen refresh after downloading a video"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
@@ -42,4 +42,7 @@ check AppData\\Local\\TMG\\YT Downloader
 
 V0.18
 Added bulk downloads
+
+V0.19
+Added automatic module installation, Added a 'This is your first time using YouTube Downloader' message, Made the screen refresh after downloading a video
 '''
