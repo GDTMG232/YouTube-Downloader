@@ -5,18 +5,16 @@ try:
     import os
     import random
     import argparse
-    from getpass import getuser as getUsername
 except ImportError:
     print("You don't have all required modules.")
     if input("Would you like to install them? (Y/N)\n").lower() == "y":
         import os
-        os.system("python -m pip install argparse yt_dlp")
+        os.system("python -m pip install argparse yt_dlp" if os.name == 'nt' else "python3 -m pip install argparse yt_dlp")
         os.system("cls" if os.name == "nt" else "clear")
         import yt_dlp as youtube_dl
         import requests
         import random
         import argparse
-        from getpass import getuser as getUsername
     else:
         exit()
 
