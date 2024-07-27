@@ -1,16 +1,28 @@
 try:
-   import yt_dlp as youtube_dl
-   import requests
-   import os
-   import random
-   import argparse
-   from getpass import getuser as getUsername
-except:
-   print("You don't have all required modules, use Requirements.bat to install the modules needed.")
-   input("")
-   exit()
+    import yt_dlp as youtube_dl
+    import requests
+    import time
+    import os
+    import random
+    import argparse
+    from getpass import getuser as getUsername
+except ImportError:
+    print("You don't have all required modules.")
+    if input("Would you like to install them? (Y/N)\n").lower() == "y":
+        import os
+        os.system("python -m pip install argparse yt_dlp")
+        os.system("cls" if os.name == "nt" else "clear")
+        import yt_dlp as youtube_dl
+        import requests
+        import random
+        import argparse
+        from getpass import getuser as getUsername
+    else:
+        exit()
 
-version = "V0.18"
+os.system("title YouTube Downloader" if os.name == "nt" else 'echo -ne "\033]0;YouTube Downloader\007"')
+
+version = "V0.19"
 
 quality = True # Set this to False if you would like videos to be downloaded faster | Does degrade quality
 
@@ -37,6 +49,14 @@ tips = [
     "\nHaving issues with download? Try updating Youtube Downloader or run 'pip install --upgrade yt_dlp'\n"
 ]
 
+# Use the user's home directory to construct paths
+home_dir = os.path.expanduser("~")
+directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader")
+
+# For cross-platform compatibility, ensure it works on non-Windows systems
+if os.name != 'nt':
+    directory = os.path.join(home_dir, "YT_Downloader")  # Modify this as needed for non-Windows systems
+
 tip_chance = 20
 
 current_version = ""
@@ -52,7 +72,7 @@ def check_for_update():
             elif line.startswith("changelog"):
                 changelog = line.split('=')[1].strip().strip('"')
 
-        if current_version and current_version != version:
+        if current_version and current_version != version and (float(current_version.replace("V", "")) > float(version.replace("V", ""))):
             update = input(f"You need to update from {version} to {current_version}!\n{changelog}\n\nWould you like to update? (Y/N) or no and don't ask again (A): ").strip().lower()
             if update == "y":
                 os.rename(__file__, "old_YT_Downloader.py")
@@ -97,6 +117,13 @@ def download_video(url, output_path=""):
         ydl.download([url])
     print("Video downloaded successfully.")
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Download YouTube Videos without sketchy websites!")
+    parser.add_argument("type", nargs='?', choices=['v', 'a', 'av', 'va'], 
+                        help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio")
+    parser.add_argument("url", nargs='?', help="YouTube URL or playlist URL")
+    return parser.parse_args()
+
 def main():
     global fflocation
 
@@ -107,20 +134,28 @@ def main():
         print("fflocation.txt not found. Please ensure the file exists.")
         exit()
 
-    parser = argparse.ArgumentParser(description="YT DNLDR")
-    parser.add_argument("type", nargs='?', help="av/va/v/a")
-    parser.add_argument("url", nargs='?', help="YouTube URL")
-    args = parser.parse_args()
+    args = parse_arguments()
 
     if args.type and args.url:
-        if args.type.lower() == "v":
+        if args.type == "v":
             download_video(args.url)
-        elif args.type.lower() == "a":
+        elif args.type == "a":
             download_audio(args.url)
-        elif args.type.lower() in ["av", "va"]:
+        elif args.type in ["av", "va"]:
             download_audio(args.url)
             download_video(args.url)
     else:
+        directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader") if os.name == 'nt' else os.path.join(home_dir, "YT_Downloader")
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        remind_file = os.path.join(directory, "Do Update Remind.txt")
+        if not os.path.exists(remind_file):
+            with open(remind_file, "w") as f:
+                f.write("Y -- Set to N if you don't want updates.")
+            print("This is your first time using YouTube Downloader.")
+        with open(remind_file, "r") as f:
+            if f.read().startswith("Y"):
+                check_for_update()
         interactive_mode()
 
 def interactive_mode():
@@ -128,41 +163,47 @@ def interactive_mode():
 
     while True:
         try:
+            os.system("cls" if os.name == "nt" else "clear")
+            doDownload = True
             if runs > 0 and random.randint(1, tip_chance) == 1:
                 print(random.choice(tips))
 
             choice = input("\nv or a\n\nv = video download, a = audio download\nor do va/av for both\nor 'exit' to quit.\n\n").strip().lower()
             if choice == "a":
                 url = input("URL(s) or playlist(s) (split with \",\": ").strip()
-                for link in url.split(","):
-                   download_audio(link.strip(), "Audio")
+                if not "youtube" in url:
+                    print("This is not a YouTube URL!")
+                    doDownload = False
+                if doDownload:
+                    for link in url.split(","):
+                        download_audio(link.strip(), "Audio")
             elif choice == "v":
                 url = input("URL(s) or playlist(s) (split with \",\": ").strip()
-                for link in url.split(","):
-                   download_video(link.strip(), "Video")
+                if not "youtube" in url:
+                    print("This is not a YouTube URL!")
+                    doDownload = False
+                if doDownload:
+                    for link in url.split(","):
+                        download_video(link.strip(), "Video")
             elif choice in ["av", "va"]:
                 url = input("URL(s) or playlist(s) (split with \",\": ").strip()
-                for link in url.split(","):
-                   download_audio(link.strip(), "Audio")
-                   download_video(link.strip(), "Video")
+                if not "youtube" in url:
+                    print("This is not a YouTube URL!")
+                    doDownload = False
+                if doDownload:
+                    for link in url.split(","):
+                        download_audio(link.strip(), "Audio")
+                        download_video(link.strip(), "Video")
             elif choice == "exit":
                 print("Goodbye!")
-                break
+                return
             else:
                 print("Invalid choice. Please enter 'v', 'a', 'av', 'va', or 'exit'.")
             runs += 1
+            time.sleep(0.5)
         except Exception as e:
             print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-   directory = f"C:\\Users\\{getUsername()}\\AppData\\Local\\TMG\\YT Downloader"
-   if not os.path.exists(f"C:\\Users\\{getUsername()}\\AppData\\Local\\TMG\\YT Downloader\\Do Update Remind.txt"):
-      os.makedirs(directory, exist_ok=True)
-      with open(f"{directory}\\Do Update Remind.txt", "x") as f:
-         pass
-      with open(f"{directory}\\Do Update Remind.txt", "a") as f:
-         f.write("Y -- Set to N if you don't want updates.")
-   with open(f"{directory}\\Do Update Remind.txt", "r") as f:
-      if f.read().startswith("Y"):
-         check_for_update()
+   
    main()
