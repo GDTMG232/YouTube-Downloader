@@ -1,3 +1,6 @@
+This might not work on Unix-Systems like MacOS or Linux, if you know how to fix it, please fork it and fix it there, thank you!
+
+
 # YouTube Downloader
 
 ## Requirements
