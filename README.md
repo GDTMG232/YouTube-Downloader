@@ -1,7 +1,6 @@
-This might not work on Unix-Systems like MacOS or Linux, if you know how to fix it, please fork it and fix it there, thank you!
-
-
 # YouTube Downloader
+Available on Unix (Linux & MacOS) and NT (Windows) systems.
+
 
 ## Requirements
 - **Python**: 3.7+ (3.12.3 Recommended)
