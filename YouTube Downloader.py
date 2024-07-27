@@ -138,12 +138,21 @@ def main():
 
     if args.type and args.url:
         if args.type == "v":
-            download_video(args.url)
+            if "youtube" in args.url.lower():
+                download_video(args.url)
+            else:
+                print("This is not a YouTube URL.")
         elif args.type == "a":
-            download_audio(args.url)
+            if "youtube" in args.url.lower():
+                download_audio(args.url)
+            else:
+                print("This is not a YouTube URL.")
         elif args.type in ["av", "va"]:
-            download_audio(args.url)
-            download_video(args.url)
+            if "youtube" in args.url.lower():
+                download_video(args.url)
+                download_audio(args.url)
+            else:
+                print("This is not a YouTube URL.")
     else:
         directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader") if os.name == 'nt' else os.path.join(home_dir, "YT_Downloader")
         if not os.path.exists(directory):
