@@ -3,8 +3,8 @@ Available on Unix (Linux & MacOS) and NT (Windows) systems.
 
 
 ## Requirements
-- **Python**: 3.7+ (3.12.3 Recommended)
-  - [Download Python 3.12.3 - Windows EXE](https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe)
+- **Python**: 3.7+ (3.12.4 Recommended)
+  - [Download Python 3.12.4 - Windows EXE](https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe)
 - **pip**:
   - `yt_dlp`
   - `argparse`
@@ -62,7 +62,7 @@ Available on Unix (Linux & MacOS) and NT (Windows) systems.
 
 ### Other Errors
 - **Application won't open**:
-  - Make sure Python is installed: [Download Python 3.12.3 Windows](https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe)
+  - Make sure Python is installed: [Download Python 3.12.4 Windows](https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe)
 - **Script issues**:
   - Update `yt_dlp` or `argparse`:
     - `pip install --upgrade yt_dlp` | `pip3 install --upgrade yt_dlp --break-system-packages`
