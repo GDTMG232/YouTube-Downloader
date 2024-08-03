@@ -1,13 +1,14 @@
 try:
-    import yt_dlp as youtube_dl
-    import requests
-    import time
+    from pathlib import Path
     import os
+    import time
     import random
     import argparse
-    from tqdm import tqdm
     import json
     import subprocess
+    import yt_dlp as youtube_dl
+    import requests
+    from tqdm import tqdm
 except ImportError:
     print("You don't have all required modules.")
     if input("Would you like to install them? (Y/N)\n").lower() == "y":
@@ -16,8 +17,6 @@ except ImportError:
         os.system("cls" if os.name == "nt" else "clear")
         import yt_dlp as youtube_dl
         import requests
-        import random
-        import argparse
         from tqdm import tqdm
     else:
         exit()
@@ -27,7 +26,7 @@ os.system("title YouTube Downloader" if os.name == 'nt' else 'echo -ne "\033]0;Y
 version = "V0.20"
 
 try:
-    with open("DownloadSettings.json", "r") as f:
+    with open(script_dir / "DownloadSettings.json", "r") as f:
         data = json.load(f)  # Load the JSON data once
 
         quality = data["HighQualityVideoDownloads"]["enabled"]
@@ -35,7 +34,7 @@ except:
     quality = False
     print("DownloadSettings.json not found. Using default settings.")
     print("Creating default DownloadSettings.json...")
-    with open("DownloadSettings.json", "w") as f:
+    with open(script_dir / "DownloadSettings.json", "w") as f:
         f.write("""{
     "HighQualityVideoDownloads": {
         "enabled": false,
