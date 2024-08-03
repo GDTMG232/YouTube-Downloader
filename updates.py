@@ -1,5 +1,5 @@
-currentVersion = "V0.19"
-changelog = "Added automatic module installation, Added a 'This is your first time using YouTube Downloader' message, Made the screen refresh after downloading a video"
+currentVersion = "V0.20"
+changelog = "Playlist downloading is saved in a folder, added DownloadSettings.json"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
@@ -45,4 +45,9 @@ Added bulk downloads
 
 V0.19
 Added automatic module installation, Added a 'This is your first time using YouTube Downloader' message, Made the screen refresh after downloading a video
+
+V0.20
+Added a DownloadSettings.json file for easy setting changing
+Made playlist downloading a bit better
+
 '''
