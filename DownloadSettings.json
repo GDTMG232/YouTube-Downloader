@@ -1,6 +1,6 @@
 {
     "HighQualityVideoDownloads": {
-        "enabled": true,
+        "enabled": false,
         "//": "Enable this if you'd like high quality downloads."
     }
 }
