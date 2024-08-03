@@ -25,6 +25,8 @@ os.system("title YouTube Downloader" if os.name == 'nt' else 'echo -ne "\033]0;Y
 
 version = "V0.20"
 
+script_dir = Path(__file__).resolve().parent
+
 try:
     with open(script_dir / "DownloadSettings.json", "r") as f:
         data = json.load(f)  # Load the JSON data once
