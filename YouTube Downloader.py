@@ -23,13 +23,13 @@ except ImportError:
 
 os.system("title YouTube Downloader" if os.name == 'nt' else 'echo -ne "\033]0;YouTube Downloader\007"')
 
-version = "V0.20"
+version = "V0.201"
 
 script_dir = Path(__file__).resolve().parent
 
 try:
     with open(script_dir / "DownloadSettings.json", "r") as f:
-        data = json.load(f)  # Load the JSON data once
+        data = json.load(f)
 
         quality = data["HighQualityVideoDownloads"]["enabled"]
 except:
@@ -43,8 +43,6 @@ except:
         "//": "Enable this if you'd like high quality downloads."
     }
 }""")
-
-print("Quality will be " + ("high" if quality else "lowered, depending on your internet speed and the overall length of the video") + ".")
 
 def read_github_file(raw_url):
     try:
@@ -107,63 +105,65 @@ def log_download(url, download_type):
     with open(os.path.join(directory, "downloads.log"), 'a') as log_file:
         log_file.write(f"{time.ctime()} - {download_type} - {url}\n")
 
-def download_audio(url, output_path=""):
-    options = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'outtmpl': os.path.join(output_path, '%(playlist)s/%(title)s.%(ext)s' if '%(playlist)s' != "NA" else "%(title)s.%(ext)s"),
-        'ffmpeg_location': fflocation,
-        'yesplaylist': True
-    }
-
+def download_audio(url, output_path="", fflocation=None):
     try:
+        with youtube_dl.YoutubeDL({'quiet': True}) as ydl:
+            info_dict = ydl.extract_info(url, download=False)
+
+        try:
+            playlist_name = info_dict.get("entries", [{}])[0].get("playlist_title", "NA")
+        except:
+            playlist_name = "NA"
+
+        options = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'outtmpl': os.path.join(output_path, playlist_name, '%(title)s.%(ext)s') if playlist_name != 'NA' else os.path.join(output_path, '%(title)s.%(ext)s'),
+            'ffmpeg_location': fflocation,
+        }
+
         with youtube_dl.YoutubeDL(options) as ydl:
-            info = ydl.extract_info(url, download=True)
+            ydl.download([url])
 
-            if 'playlist' in info and info['playlist'] is not None:
-                playlist_folder = info['playlist']
-            else:
-                playlist_folder = "NA"
-
-            file_path = os.path.join(output_path, playlist_folder, f"{info['title']}.{info['ext']}")
-
-        log_download(url, "audio")
         print("Audio downloaded successfully.")
     except Exception as e:
         print(f"Error downloading audio: {e}")
 
 
-def download_video(url, output_path=""):
-    options = {
-        'format': 'bestvideo+bestaudio/best' if quality else 'best',
-        'outtmpl': os.path.join(output_path, '%(playlist)s/%(title)s.%(ext)s' if '%(playlist)s' != "NA" else "%(title)s.%(ext)s"),
-        'ffmpeg_location': fflocation,
-        'yesplaylist': True
-    }
-
+def download_video(url, output_path="", quality=False, fflocation=None):
     try:
+        with youtube_dl.YoutubeDL({'quiet': True}) as ydl:
+            info_dict = ydl.extract_info(url, download=False)
+
+        try:
+            playlist_name = info_dict["entries"][0]["playlist_title"]
+        except:
+            playlist_name = None
+        if playlist_name and playlist_name != 'NA':
+            outtmpl = os.path.join(output_path, playlist_name, '%(title)s.%(ext)s')
+        else:
+            outtmpl = os.path.join(output_path, '%(title)s.%(ext)s')
+
+        options = {
+            'format': 'bestvideo+bestaudio/best' if quality else 'best',
+            'outtmpl': outtmpl,
+            'ffmpeg_location': fflocation,
+        }
+
         with youtube_dl.YoutubeDL(options) as ydl:
-            info = ydl.extract_info(url, download=True)
-            
-            if 'playlist' in info and info['playlist'] is not None:
-                playlist_folder = info['playlist']
-            else:
-                playlist_folder = "NA"
+            ydl.download([url])
 
-            file_path = os.path.join(output_path, playlist_folder, f"{info['title']}.{info['ext']}")
-
-        log_download(url, "video")
         print("Video downloaded successfully.")
     except Exception as e:
         print(f"Error downloading video: {e}")
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Download YouTube Videos without sketchy websites!")
+    parser = argparse.ArgumentParser(description="Download YouTube Videos without sketchy websites")
     parser.add_argument("type", nargs='?', choices=['v', 'a', 'av', 'va'],
                         help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio")
     parser.add_argument("url", nargs='?', help="YouTube URL or playlist URL")
@@ -213,6 +213,8 @@ def main():
         interactive_mode()
 
 def interactive_mode():
+    print("Quality will be " + ("high" if quality else "lowered, depending on your internet speed and the overall length of the video") + ".")
+
     runs = 0
 
     time.sleep(0.5)
