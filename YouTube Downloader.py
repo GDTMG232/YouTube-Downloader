@@ -16,7 +16,6 @@ except ImportError:
         os.system("cls" if os.name == "nt" else "clear")
         import yt_dlp as youtube_dl
         import requests
-        from tqdm import tqdm
     else:
         exit()
 
