@@ -8,12 +8,11 @@ try:
     import subprocess
     import yt_dlp as youtube_dl
     import requests
-    from tqdm import tqdm
 except ImportError:
     print("You don't have all required modules.")
     if input("Would you like to install them? (Y/N)\n").lower() == "y":
         import os
-        os.system("python -m pip install argparse yt_dlp tqdm sponsorblock" if os.name == 'nt' else "python3 -m pip install argparse yt_dlp tqdm sponsorblock")
+        os.system("python -m pip install argparse yt_dlp sponsorblock" if os.name == 'nt' else "python3 -m pip install argparse yt_dlp sponsorblock")
         os.system("cls" if os.name == "nt" else "clear")
         import yt_dlp as youtube_dl
         import requests
