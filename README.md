@@ -3,6 +3,7 @@ Available on Unix (Linux & MacOS) and NT (Windows) systems.
 
 Current Version - V0.201
 
+[Releases](https://github.com/GDTMG232/YouTube-Downloader/releases)
 
 ## Requirements
 - **Python**: 3.7+ (3.12.4 Recommended)
