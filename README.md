@@ -1,7 +1,7 @@
 # YouTube Downloader
 Available on Unix (Linux & MacOS) and NT (Windows) systems.
 
-Current Version - V0.201
+Current Version - V0.21 ([Release Notes](#v021-release-notes))
 
 [Releases](https://github.com/GDTMG232/YouTube-Downloader/releases)
 
@@ -70,3 +70,9 @@ Current Version - V0.201
   - Update `yt_dlp` or `argparse`:
     - `pip install --upgrade yt_dlp` | `pip3 install --upgrade yt_dlp --break-system-packages`
     - `pip install --upgrade argparse` | `pip3 install --upgrade argparse --break-system-packages`
+
+<hr>
+# V0.21 Release Notes
+Added internet checking and made HQ downloads actually work
+
+Get V0.21 [here](https://github.com/GDTMG232/YouTube-Downloader/releases/tag/V0.21)!
