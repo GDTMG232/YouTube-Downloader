@@ -72,6 +72,7 @@ Current Version - V0.21 ([Release Notes](#v021-release-notes))
     - `pip install --upgrade argparse` | `pip3 install --upgrade argparse --break-system-packages`
 
 <hr>
+
 # V0.21 Release Notes
 Added internet checking and made HQ downloads actually work
 
