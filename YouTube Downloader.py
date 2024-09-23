@@ -5,14 +5,13 @@ try:
     import random
     import argparse
     import json
-    import subprocess
     import yt_dlp as youtube_dl
     import requests
 except ImportError:
     print("You don't have all required modules.")
     if input("Would you like to install them? (Y/N)\n").lower() == "y":
         import os
-        os.system("python -m pip install argparse yt_dlp sponsorblock" if os.name == 'nt' else "python3 -m pip install argparse yt_dlp sponsorblock")
+        os.system("python -m pip install argparse yt_dlp" if os.name == 'nt' else "python3 -m pip install argparse yt_dlp")
         os.system("cls" if os.name == "nt" else "clear")
         import yt_dlp as youtube_dl
         import requests
@@ -21,14 +20,29 @@ except ImportError:
 
 os.system("title YouTube Downloader" if os.name == 'nt' else 'echo -ne "\033]0;YouTube Downloader\007"')
 
-version = "V0.201"
+version = "V0.21"
 
 script_dir = Path(__file__).resolve().parent
+
+# Check for Internet
+def checkInternet():
+    try:
+        response = requests.get("https://www.google.com/", timeout=2)
+        return response.status_code == 200
+    except requests.exceptions.RequestException:
+        return False
+
+print("Checking Internet Connection...", end="")
+
+if not checkInternet():
+    print("\rYou need a stable internet connection to be able to use YouTube Downloader.")
+    exit()
+
+print("\rInternet Connection is good enough to run YouTube Downloader")
 
 try:
     with open(script_dir / "DownloadSettings.json", "r") as f:
         data = json.load(f)
-
         quality = data["HighQualityVideoDownloads"]["enabled"]
 except:
     quality = False
@@ -66,7 +80,7 @@ tips = [
 ]
 
 home_dir = os.path.expanduser("~")
-directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader") if os.name == 'nt' else os.path.join(home_dir, "YT_Downloader")
+directory = (os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader")) if os.name == 'nt' else (os.path.join(home_dir, "YT_Downloader"))
 
 tip_chance = 20
 
@@ -101,7 +115,7 @@ def check_for_update():
 
 def log_download(url, download_type):
     with open(os.path.join(directory, "downloads.log"), 'a') as log_file:
-        log_file.write(f"{time.ctime()} - {download_type} - {url}\n")
+        log_file.write(f"Date and Time: {time.ctime()} - Download Type: {download_type} - URL: {url}\n")
 
 def download_audio(url, output_path="", fflocation=None):
     try:
@@ -131,7 +145,6 @@ def download_audio(url, output_path="", fflocation=None):
     except Exception as e:
         print(f"Error downloading audio: {e}")
 
-
 def download_video(url, output_path="", quality=False, fflocation=None):
     try:
         with youtube_dl.YoutubeDL({'quiet': True}) as ydl:
@@ -147,9 +160,15 @@ def download_video(url, output_path="", quality=False, fflocation=None):
             outtmpl = os.path.join(output_path, '%(title)s.%(ext)s')
 
         options = {
-            'format': 'bestvideo+bestaudio/best' if quality else 'best',
+            'format': 'bestvideo+bestaudio/best' if quality else "best",
             'outtmpl': outtmpl,
             'ffmpeg_location': fflocation,
+            'merge_output_format': 'mp4',
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4',
+            }],
+            'quiet': True
         }
 
         with youtube_dl.YoutubeDL(options) as ydl:
@@ -159,16 +178,17 @@ def download_video(url, output_path="", quality=False, fflocation=None):
     except Exception as e:
         print(f"Error downloading video: {e}")
 
-
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Download YouTube Videos without sketchy websites")
-    parser.add_argument("type", nargs='?', choices=['v', 'a', 'av', 'va'],
-                        help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio")
-    parser.add_argument("url", nargs='?', help="YouTube URL or playlist URL")
-    return parser.parse_args()
+    global quality
+    parser = argparse.ArgumentParser(prog="YouTube Downloader", description="Download YouTube Videos without sketchy websites")
+    parser.add_argument("type", choices=['v', 'a', 'av', 'va'],
+                        help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio", nargs=1)
+    parser.add_argument("url", help="YouTube URL or playlist URL", type=str, nargs=1)
+    args = parser.parse_args()
+    return args
 
 def main():
-    global fflocation
+    global fflocation, quality
 
     try:
         with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fflocation.txt"), "r") as f:
@@ -178,92 +198,110 @@ def main():
         exit()
 
     args = parse_arguments()
+    
+    print(args)
+
+    exit()
+
+    quality = args.hq == "y" if args.hq else quality
 
     if args.type and args.url:
+        print("Will download in High Quality" if quality else "Will download in Fast Quality")
         if args.type == "v":
-            if "youtube" in args.url.lower():
-                download_video(args.url)
+            if "youtube" in args.url.lower() or "youtu.be" in args.url.lower():
+                log_download(args.url, "video")
+                download_video(args.url, quality=quality)
+                
             else:
                 print("This is not a YouTube URL.")
         elif args.type == "a":
-            if "youtube" in args.url.lower():
-                download_audio(args.url)
+            if "youtube" in args.url.lower() or "youtu.be" in args.url.lower():
+                log_download(args.url, "audio")
+                download_audio(args.url, quality=quality)
             else:
                 print("This is not a YouTube URL.")
         elif args.type in ["av", "va"]:
-            if "youtube" in args.url.lower():
-                download_video(args.url)
-                download_audio(args.url)
+            if "youtube" in args.url.lower() or "youtu.be" in args.url.lower():
+                log_download(args.url, "video and audio")
+                download_video(args.url, quality=quality)
+                download_audio(args.url, quality=quality)
             else:
                 print("This is not a YouTube URL.")
     else:
+        print("no arguments")
         directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader") if os.name == 'nt' else os.path.join(home_dir, "YT_Downloader")
         if not os.path.exists(directory):
             os.makedirs(directory)
+        print("Checked for YT_Downloader folder")
         remind_file = os.path.join(directory, "Do Update Remind.txt")
         if not os.path.exists(remind_file):
             with open(remind_file, "w") as f:
                 f.write("Y -- Set to N if you don't want updates.")
             print("This is your first time using YouTube Downloader.")
+        print("Checked for Reminder File")
         with open(remind_file, "r") as f:
+            print("Checking File")
             if f.read().startswith("Y"):
+                print("Checking updates")
                 check_for_update()
+        print("Checked for updates")
+        print("Interactive Mode")
         interactive_mode()
 
 def interactive_mode():
     print("Quality will be " + ("high" if quality else "lowered, depending on your internet speed and the overall length of the video") + ".")
-
     runs = 0
-
     time.sleep(0.5)
 
     while True:
         try:
-            os.system("cls" if os.name == "nt" else "clear")
-                      
+            #os.system("cls" if os.name == "nt" else "clear")
             doDownload = True
             if runs > 0 and random.randint(1, tip_chance) == 1:
                 print(random.choice(tips))
 
             choice = input("\nv, a\n\nv = video download, a = audio download\nor do va/av for both\nor 'exit' to quit.\n\n").strip().lower()
             if choice == "a":
-                url = input("URL(s) or playlist(s) (split with \",\" or file path): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\"): ").strip()
                 if os.path.exists(url):
                     with open(url, 'r') as f:
                         urls = f.read().splitlines()
                 else:
                     urls = url.split(",")
-                if not all("youtube" in link for link in urls):
+                if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
                     doDownload = False
                 if doDownload:
                     for link in urls:
+                        log_download(link, "audio")
                         download_audio(link.strip(), "Audio")
             elif choice == "v":
-                url = input("URL(s) or playlist(s) (split with \",\" or file path): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\"): ").strip()
                 if os.path.exists(url):
                     with open(url, 'r') as f:
                         urls = f.read().splitlines()
                 else:
                     urls = url.split(",")
-                if not all("youtube" in link for link in urls):
+                if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
                     doDownload = False
                 if doDownload:
                     for link in urls:
+                        log_download(link, "video")
                         download_video(link.strip(), "Video")
             elif choice in ["av", "va"]:
-                url = input("URL(s) or playlist(s) (split with \",\" or file path): ").strip()
+                url = input("URL(s) or playlist(s) (split with \",\"): ").strip()
                 if os.path.exists(url):
                     with open(url, 'r') as f:
                         urls = f.read().splitlines()
                 else:
                     urls = url.split(",")
-                if not all("youtube" in link for link in urls):
+                if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
                     doDownload = False
                 if doDownload:
                     for link in urls:
+                        log_download(link, "video and audio")
                         download_audio(link.strip(), "Audio")
                         download_video(link.strip(), "Video")
             elif choice == "exit":
