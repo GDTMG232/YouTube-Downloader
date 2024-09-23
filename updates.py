@@ -1,5 +1,5 @@
-currentVersion = "V0.201"
-changelog = "Playlist downloading now doesn't affect non-playlist videos/audios"
+currentVersion = "V0.21"
+changelog = "Added internet checking and made HQ downloads actually work"
 # This Python file is simply just versions, no worries about downloading this file :)
 '''
 ALL VERSIONS - in order
@@ -52,5 +52,8 @@ Made playlist downloading a bit better
 
 V0.201
 Minor Fix : Playlist downloading now doesn't affect non-playlist videos/audios
+
+V0.21
+Added internet checking and made HQ downloads actually work
 
 '''
