@@ -198,10 +198,6 @@ def main():
         exit()
 
     args = parse_arguments()
-    
-    print(args)
-
-    exit()
 
     quality = args.hq == "y" if args.hq else quality
 
