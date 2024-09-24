@@ -182,8 +182,8 @@ def parse_arguments():
     global quality
     parser = argparse.ArgumentParser(prog="YouTube Downloader", description="Download YouTube Videos without sketchy websites")
     parser.add_argument("type", choices=['v', 'a', 'av', 'va'],
-                        help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio", nargs=1)
-    parser.add_argument("url", help="YouTube URL or playlist URL", type=str, nargs=1)
+                        help="Type of download: 'v' for video, 'a' for audio, 'av' for audio and video, 'va' for video and audio", nargs="?")
+    parser.add_argument("url", help="YouTube URL or playlist URL", type=str, nargs="?")
     args = parser.parse_args()
     return args
 
@@ -198,6 +198,10 @@ def main():
         exit()
 
     args = parse_arguments()
+    
+    print(args)
+
+    exit()
 
     quality = args.hq == "y" if args.hq else quality
 
