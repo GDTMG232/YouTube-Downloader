@@ -249,7 +249,7 @@ def interactive_mode():
 
     while True:
         try:
-            #os.system("cls" if os.name == "nt" else "clear")
+            os.system("cls" if os.name == "nt" else "clear")
             doDownload = True
             if runs > 0 and random.randint(1, tip_chance) == 1:
                 print(random.choice(tips))
