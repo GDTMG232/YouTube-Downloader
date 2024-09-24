@@ -198,12 +198,6 @@ def main():
         exit()
 
     args = parse_arguments()
-    
-    print(args)
-
-    exit()
-
-    quality = args.hq == "y" if args.hq else quality
 
     if args.type and args.url:
         print("Will download in High Quality" if quality else "Will download in Fast Quality")
