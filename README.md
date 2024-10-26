@@ -34,16 +34,15 @@ Current Version - V0.22 ([Release Notes](#v022-release-notes))
    - For UNIX - Open Terminal and run: `pip3 install yt_dlp argparse --break-system-packages`
 
 4. **Set up ffmpeg location**:
-   - In the YouTube Downloader folder, edit `fflocation.txt`.
+   - In the YouTube Downloader folder, edit `DownloadSettings.json`.
    - For NT - Add the directory path to ffmpeg, but **do not include** `ffmpeg.exe` in the path.
      - **Correct Format**: `path\to\your\ffmpeg\`
      - **Incorrect Format**: `path\to\your\ffmpeg\ffmpeg.exe`
 
 ## How to Use
 
-1. **Edit `fflocation.txt`**:
-   - Replace `YOUR_FFMPEG_DIRECTORY` with the path to your ffmpeg folder.
-   - Set `;DIRECTORY` to 1 if the directory you need is the only one there.
+1. **Edit `DownloadSettings.json`**:
+   - Replace `path/to/ffmpeg` with the path to your ffmpeg folder.
 
 2. **Run the YouTube Downloader**:
    - Open CMD and navigate to the YouTube Downloader folder.
@@ -62,7 +61,7 @@ Current Version - V0.22 ([Release Notes](#v022-release-notes))
   - You haven't installed `yt_dlp` or `argparse`. 
   - Run: `pip install yt_dlp argparse`
 - **ERROR: ffmpeg not found**:
-  - Ensure the correct directory is set in `fflocation.txt`.
+  - Ensure the correct directory is set in `DownloadSettings.json`.
 
 ### Other Errors
 - **Application won't open**:
