@@ -1,7 +1,7 @@
 # YouTube Downloader
 Available on Unix (Linux & MacOS) and NT (Windows) systems.
 
-Current Version - V0.21 ([Release Notes](#v021-release-notes))
+Current Version - V0.22 ([Release Notes](#v022-release-notes))
 
 [Releases](https://github.com/GDTMG232/YouTube-Downloader/releases)
 
@@ -15,7 +15,7 @@ Current Version - V0.21 ([Release Notes](#v021-release-notes))
   - UNIX: Install with: `pip3 install yt_dlp argparse --break-system-packages`
 - **ffmpeg**:
   - [Download ffmpeg - Windows](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z)
-  - Unzip the ffmpeg `.7z` file to a designated folder.
+  - Unzip the ffmpeg `.7z` file to a designated folder using WinRAR or 7Zip.
   - [Download ffmpeg - Linux Ubuntu](https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/ffmpeg/7:6.1.1-5ubuntu8/ffmpeg_6.1.1.orig.tar.xz)
   - Unzip the ffmpeg `.tar.xz` file to a designated folder.
 
@@ -34,7 +34,7 @@ Current Version - V0.21 ([Release Notes](#v021-release-notes))
    - For UNIX - Open Terminal and run: `pip3 install yt_dlp argparse --break-system-packages`
 
 4. **Set up ffmpeg location**:
-   - In the YouTube Downloader folder, create or edit `fflocation.txt`.
+   - In the YouTube Downloader folder, edit `fflocation.txt`.
    - For NT - Add the directory path to ffmpeg, but **do not include** `ffmpeg.exe` in the path.
      - **Correct Format**: `path\to\your\ffmpeg\`
      - **Incorrect Format**: `path\to\your\ffmpeg\ffmpeg.exe`
@@ -43,6 +43,7 @@ Current Version - V0.21 ([Release Notes](#v021-release-notes))
 
 1. **Edit `fflocation.txt`**:
    - Replace `YOUR_FFMPEG_DIRECTORY` with the path to your ffmpeg folder.
+   - Set `;DIRECTORY` to 1 if the directory you need is the only one there.
 
 2. **Run the YouTube Downloader**:
    - Open CMD and navigate to the YouTube Downloader folder.
@@ -73,7 +74,7 @@ Current Version - V0.21 ([Release Notes](#v021-release-notes))
 
 <hr>
 
-# V0.21 Release Notes
-Added internet checking and made HQ downloads actually work
+# V0.22 Release Notes
+Merged fflocation.txt to DownloadSettings.json
 
-Get V0.21 [here](https://github.com/GDTMG232/YouTube-Downloader/releases/tag/V0.21)!
+Get V0.22 [here](https://github.com/GDTMG232/YouTube-Downloader/releases/tag/V0.22)!

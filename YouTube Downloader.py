@@ -20,7 +20,7 @@ except ImportError:
 
 os.system("title YouTube Downloader" if os.name == 'nt' else 'echo -ne "\033]0;YouTube Downloader\007"')
 
-version = "V0.21"
+version = "V0.22"
 
 script_dir = Path(__file__).resolve().parent
 
@@ -32,10 +32,8 @@ def checkInternet():
     except requests.exceptions.RequestException:
         return False
 
-print("Checking Internet Connection...", end="")
-
 if not checkInternet():
-    print("\rYou need a stable internet connection to be able to use YouTube Downloader.")
+    print("You need a stable internet connection to be able to use YouTube Downloader.")
     exit()
 
 print("\rInternet Connection is good enough to run YouTube Downloader")
@@ -44,17 +42,25 @@ try:
     with open(script_dir / "DownloadSettings.json", "r") as f:
         data = json.load(f)
         quality = data["HighQualityVideoDownloads"]["enabled"]
+        fflocation = data["ffmpegLocation"]["path"]
 except:
     quality = False
-    print("DownloadSettings.json not found. Using default settings.")
+    print("DownloadSettings.json not found.")
     print("Creating default DownloadSettings.json...")
     with open(script_dir / "DownloadSettings.json", "w") as f:
         f.write("""{
     "HighQualityVideoDownloads": {
         "enabled": false,
         "//": "Enable this if you'd like high quality downloads."
+    },
+    "ffmpegLocation": {
+        "path": "path/to/ffmpeg",
+        "//": "Path to your ffmpeg install. Do not include the executable filename, just the directory of the executable."
     }
-}""")
+}
+""")
+    print("Make sure to set your ffmpeg location in DownloadSettings.json")
+    exit()
 
 def read_github_file(raw_url):
     try:
@@ -84,8 +90,7 @@ directory = (os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader"))
 
 tip_chance = 20
 
-current_version = ""
-changelog = ""
+current_version, changelog = "", ""
 
 def check_for_update():
     global current_version, changelog
@@ -190,13 +195,6 @@ def parse_arguments():
 def main():
     global fflocation, quality
 
-    try:
-        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fflocation.txt"), "r") as f:
-            fflocation = f.read().strip().split(" -- ")[0]
-    except FileNotFoundError:
-        print("fflocation.txt not found. Please ensure the file exists.")
-        exit()
-
     args = parse_arguments()
 
     if args.type and args.url:
@@ -226,20 +224,15 @@ def main():
         directory = os.path.join(home_dir, "AppData", "Local", "TMG", "YT Downloader") if os.name == 'nt' else os.path.join(home_dir, "YT_Downloader")
         if not os.path.exists(directory):
             os.makedirs(directory)
-        print("Checked for YT_Downloader folder")
         remind_file = os.path.join(directory, "Do Update Remind.txt")
         if not os.path.exists(remind_file):
             with open(remind_file, "w") as f:
                 f.write("Y -- Set to N if you don't want updates.")
             print("This is your first time using YouTube Downloader.")
-        print("Checked for Reminder File")
         with open(remind_file, "r") as f:
-            print("Checking File")
             if f.read().startswith("Y"):
                 print("Checking updates")
                 check_for_update()
-        print("Checked for updates")
-        print("Interactive Mode")
         interactive_mode()
 
 def interactive_mode():
@@ -264,9 +257,8 @@ def interactive_mode():
                     urls = url.split(",")
                 if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
-                    doDownload = False
-                if doDownload:
-                    for link in urls:
+                    continue
+                for link in urls:
                         log_download(link, "audio")
                         download_audio(link.strip(), "Audio")
             elif choice == "v":
@@ -278,11 +270,10 @@ def interactive_mode():
                     urls = url.split(",")
                 if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
-                    doDownload = False
-                if doDownload:
-                    for link in urls:
-                        log_download(link, "video")
-                        download_video(link.strip(), "Video")
+                    continue
+                for link in urls:
+                    log_download(link, "video")
+                    download_video(link.strip(), "Video")
             elif choice in ["av", "va"]:
                 url = input("URL(s) or playlist(s) (split with \",\"): ").strip()
                 if os.path.exists(url):
@@ -292,12 +283,11 @@ def interactive_mode():
                     urls = url.split(",")
                 if not all("youtube" in link for link in urls) and not all("youtu.be" in link for link in urls):
                     print("One or more URLs are not valid YouTube URLs!")
-                    doDownload = False
-                if doDownload:
-                    for link in urls:
-                        log_download(link, "video and audio")
-                        download_audio(link.strip(), "Audio")
-                        download_video(link.strip(), "Video")
+                    continue
+                for link in urls:
+                    log_download(link, "video and audio")
+                    download_audio(link.strip(), "Audio")
+                    download_video(link.strip(), "Video")
             elif choice == "exit":
                 print("Goodbye!")
                 return

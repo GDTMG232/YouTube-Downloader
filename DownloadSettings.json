@@ -2,5 +2,9 @@
     "HighQualityVideoDownloads": {
         "enabled": false,
         "//": "Enable this if you'd like high quality downloads."
+    },
+    "ffmpegLocation": {
+        "path": "path/to/ffmpeg",
+        "//": "Path to your ffmpeg install. Do not include the executable filename, just the directory of the executable."
     }
 }
